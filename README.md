@@ -6,7 +6,7 @@ React is a JS library for rendering web pages. That’s it. The closest equivale
 
 
 So why use it?
-- React is fast. It renders the pages using virtual DOM, instead of rendering to the actual DOM, it uses the virtual DOM compare the changes of the page and then renders to the DOM only the changes.
+- React is fast. It renders the pages using virtual DOM, instead of rendering to the actual DOM, it uses the virtual DOM compares the changes of the page and then renders to the DOM only the changes.
 - It enforces the developer to use software development best practices, such as unidirectional data flow.
 - React native - react development and react native are very similar, and react native is excellent way to create mobile native apps.
 - It allows server rendering.
@@ -23,10 +23,10 @@ So why use it?
 4. Dispatch actions to change the state.
 
 ## Build a React application
-The best way to learn react is to do it with an example, I will build a simple application that greet the user. I will do it step by step, each step will demonstrate one or more methods and principle. Although it seems like very small, it is enough to understand react concepts and how to expand it to a real application.
+The best way to learn react is to do it with an example, I will build a simple application that greet the user. I will do it step by step, each step will demonstrate one or more methods and principle. Although it is very small, it is enough to understand react concepts and how to expand it to a real application.
 
 ### Building the app 
-I will use the new “create-react-app” that removes all the boilerplate of configuring all the packaging and serving of the react app (that is a pain).
+I will use the new “create-react-app” that removes all the boilerplate of configuring, packaging and serving the app (it is a pain).
 
 ### Install create-react-app, create the app:
 ``` 
@@ -75,10 +75,10 @@ a,
 )
 ```
 We can write:
-```JavaScript
+```html
 <a href=”spectory.com”>Spectory website</a>
 ```
-It is very similar to HTML, and it let us integrate JS code inside, we can change our component to be more dynamic by adding a parameter to it by surrounding it with curly braces:
+It is very similar to HTML, and it lets us integrate JS code inside, we can change our component to be more dynamic by adding a parameter to it by surrounding it with curly braces:
 ```JavaScript
 import React, {Component} from 'react';
 
@@ -192,8 +192,8 @@ Now it is time to build a little more complex component for our login page. As I
 
 Login page:
 - Header
-- Form
-  - inside the form there are two types of components, InputField - for username and password, 
+- Form - (inside the form there are two types of components)
+  - InputField - for username and password, 
   - Button
 
 We will build the component from top to bottom, start with the login page:
@@ -298,23 +298,23 @@ I added a little bootstrap and now we have a beautiful login page.
 ![login_page2](img/login_page2.png)
 
 ## Adding functionality
-The application we have build looks fine but it doesn’t do anything. As I wrote in the beginning, React is only a rendering library, so we need something else to add the functionality. It can be vanilla JS, frameworks like Relay, meteor or even Angular, but the common usage is with Flux, especially with Redux. 
+The application we have build looks fine but it doesn’t do anything. As I wrote in the beginning, React is only a rendering library, so we need something else to add the functionality. It can be vanilla JS, frameworks like Relay, Meteor or even Angular, but the common usage is with Flux, especially with Redux. 
 
-Redux is a set of library (actualy set of libraries) that simplified Flux. It is the most popular library to use with React.
 
 ## Redux
-I will not describe the Flux architecture , only the way Redux implements it.
-Redux is a library that helps maintaining the application state. It uses 3 type of objects:
+Redux is a set of libraries that simplified Flux. It is the most popular library to use with React.
+I will not describe the Flux architecture ,only the way Redux implements it.
+Redux is a library that helps maintaining the application state. It uses 3 types of objects:
 
-1. Actions - action is a function that the application is using to send data to the store. Every action has a type, that being used by the reducer to change the state.
-2. Reducers - The reducers takes the data from the action and insert it into the state.
+1. Actions - action is a function that the application uses to send data to the store. Every action has a type, that being used by the reducer to change the state.
+2. Reducers - The reducers takes the data from the action and inserts it into the state.
 3. Store - the store has few responsibilities:
-    - Hold the state of the application, and expose it.
-    - Dispatch actions.
-    - Subscription on the state changes to listeners.
+    - Holds the state of the application, and expose it.
+    - Dispatches actions.
+    - Subscribes listeners on state changes events.
 
 ### Redux data flow
-Let’s view the login process to explain the Redux data flow:
+Let’s view the login process to explain the redux data flow:
 
 1. The user presses on the ‘Login’ button.
 2. This dispatches a login action.
@@ -323,14 +323,17 @@ Let’s view the login process to explain the Redux data flow:
 5. The store notifies the listeners (the components).
 6. The properties of the components change and the display updates.
 
+![redux-data-flow](img/redux-data-flow.png)
+
+
 ### Redux with react
 Redux offers the ‘react-redux’ library that provides functionality to integrate react components with redux store and actions. We will see how to use them in our application
 
 ### Async actions
-Many of our operations in our app are asynchronous. For instance: ajax calls, working with local storage, GPS and more. Redux offers the ‘redux-thunk’ library to implement async actions. It uses an action to dispatch another action(s) when it returns from the async call.
+Many of our operations in our apps are asynchronous. For instance: ajax calls, working with local storage, GPS and more. Redux offers the ‘redux-thunk’ library to implement async actions. It uses an action to dispatch another action(s) when it returns from the async call.
 
 ## Adding redux to our application:
-Let’s see how to add Redux and make our app dynamic:
+Let’s see how to add redux and make our app dynamic:
 The action we will implement is the login action.
 It is an async action because it needs to make an ajax call. 
 
@@ -363,7 +366,7 @@ export function authenticate(username, password) {
     });
 }
 ```
-This mock has one function (authenticate) that returns a promise. It check against a static list if the given credentials are valid or not and resolve or reject accordingly. Notice that I added a short delay to simulate roundtrip to the server.
+This mock has one function (authenticate) that returns a promise. It checks against a static list if the given credentials are valid or not and resolves or rejects accordingly. Notice that I added a short delay to simulate roundtrip to the server.
 
 Before doing it we need to install redux libraries:
 ```
@@ -412,7 +415,7 @@ It is a good practice to write all the actions’ types in a separate file, and 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 ```
-### implement the reducer
+### The reducer
 ```JavaScript
 // src/reducers/login_reducer.js
 import * as types from '../actions/actionTypes';
@@ -437,7 +440,7 @@ We can see here some redux rules:
 - We can use default parameter in order to init our state. It is better to do it in a different file where we can see the whole initial state and also its structure. The application state structure is very important. It should be designed in thought to serve the application functionality:
     - Before you add object to the state, stop, and think. 
     - Keep it small and simple as possible.
-    - remember that you can manipulate this state before transferring it to the props (will see that in a minute). 
+    - Remember that you can manipulate this state before transferring it to the props (will see that in a minute). 
     - Do not keep duplications or redundant data. 
     - Treat it like you treat the database tables, it will gain you a lot of headaches in the future.
 
