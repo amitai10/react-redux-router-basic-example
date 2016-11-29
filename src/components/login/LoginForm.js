@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { browserHistory } from 'react-router'; 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import InputField from '../common/InputField';
 import * as loginActions from '../../actions/loginActions';
 
